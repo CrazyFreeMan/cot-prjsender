@@ -8,6 +8,8 @@
 <form action="{PRJSENDER_FORM_ACTION}" method="post">
 	{PRJSENDER_FORM_CATS}
 	<br/>
+	{PRJSENDER_FORM_LOCATION}
+	<br/>
 	<button class="btn btn-success">{PHP.L.Submit}</button>
 </form>
 

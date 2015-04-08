@@ -15,10 +15,23 @@ $users_sql = $db->query("SELECT * FROM $db_users WHERE user_prjsendercats!='' AN
 while($urr = $users_sql->fetch())
 {
 	$prjcats = explode(',', $urr['user_prjsendercats']);
-	
+	list($prjlocation['country'],$prjlocation['region'],$prjlocation['city']) = explode(',', $urr['user_prjsenderlocation']);
+		
+	if(strlen($prjlocation['country']) >= 2){
+		$queryloc['country'] = "item_country = '".$prjlocation['country']."'";
+	}
+	if($prjlocation['region'] != 0 && !empty($prjlocation['region'])){
+		$queryloc['region'] = "item_region = ".$prjlocation['region'];
+	}
+	if($prjlocation['city'] > 0 ){
+		$queryloc['city'] = "item_city = ".$prjlocation['city'];
+	}
+	if (!empty($queryloc)) {
+	$queryl = " AND ".implode(" AND ", $queryloc);
+	}
 	$prjs = $db->query("SELECT * FROM $db_projects AS p
 		LEFT JOIN $db_users AS u ON u.user_id=p.item_userid
-		WHERE item_state=0 AND item_cat IN ('".implode("','", $prjcats)."') AND item_userid!=".$urr['user_id']." AND item_date>".$urr['user_prjsenderdate'])->fetchAll();
+		WHERE item_state=0 AND item_cat IN ('".implode("','", $prjcats)."') AND item_userid!=".$urr['user_id']." AND item_date>".$urr['user_prjsenderdate'].$queryl)->fetchAll();
 	
 	if(is_array($prjs) && count($prjs) > 0)
 	{
