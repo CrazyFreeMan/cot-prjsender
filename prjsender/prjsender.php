@@ -21,7 +21,7 @@ foreach (cot_getextplugins('prjsender.first') as $pl)
 if($a == 'update')
 {
 	$rcats = cot_import('cats', 'P', 'ARR');
-	$rlocation = cot_import_location('rlocation');
+	$rlocation = cot_import_location();
 	$rcats = (!empty($rcats)) ? implode(',', $rcats) : '';
 	$rlocation = (!empty($rlocation)) ? implode(',', $rlocation) : '0,0,0';
 
@@ -64,7 +64,7 @@ if(!empty($usr['profile']['user_prjsenderlocation']))
 $t->assign(array(
 	'PRJSENDER_FORM_ACTION' => cot_url('prjsender', 'a=update'),
 	'PRJSENDER_FORM_CATS' => cot_checklistbox($rcats, 'cats', $prjcats, $prjcats_titles, '', '', false),		
-	'PRJSENDER_FORM_LOCATION' => cot_select_location('rlocation', $rlocation['country'], $rlocation['region'], $rlocation['city'], true)
+	'PRJSENDER_FORM_LOCATION' => cot_select_location($rlocation['country'], $rlocation['region'], $rlocation['city'], true)
 	
 ));
 

@@ -13,3 +13,7 @@ if (!$db->fieldExists($db_users, "user_prjsendercats"))
 {
 	$db->query("ALTER TABLE `$db_users` ADD COLUMN `user_prjsendercats` MEDIUMTEXT collate utf8_unicode_ci NOT NULL");
 }
+if (!$db->fieldExists($db_users, "user_prjsenderlocation"))
+{
+	$db->query("ALTER TABLE `$db_users` ADD COLUMN `user_prjsenderlocation` MEDIUMTEXT collate utf8_unicode_ci NOT NULL");
+}
